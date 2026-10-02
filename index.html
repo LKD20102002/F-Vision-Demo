@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QC Endline Claim Report - May 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .summary-cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            flex: 1;
+            min-width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .card .value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .card .unit {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 30px 0;
+        }
+        .top3-highlight {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .top3-highlight h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .badge-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+        .badge-info {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 QC Endline Claim Report - May 2026</h1>
+        
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Defective Pieces</h3>
+                <div class="value">528,446</div>
+                <div class="unit">pieces inspected with defects</div>
+            </div>
+            <div class="card">
+                <h3>Top Defect Type</h3>
+                <div class="value">Puckering</div>
+                <div class="unit">16.21% of all defects</div>
+            </div>
+            <div class="card">
+                <h3>Reporting Period</h3>
+                <div class="value">May 2026</div>
+                <div class="unit">2026-05-01 to 2026-05-31</div>
+            </div>
+        </div>
+
+        <div class="top3-highlight">
+            <h3>🔴 Top 3 Critical Defects Requiring Immediate Attention</h3>
+            <p><strong>1. Puckering/Pleating (起皱-打褶 Nhăn-nhíu)</strong> - <span class="badge badge-danger">85,636 pieces (16.21%)</span></p>
+            <p><strong>2. Unattached/Untrimmed/Loop Thread (零散-未剪除线头 Cắt chỉ không sạch)</strong> - <span class="badge badge-warning">48,941 pieces (9.26%)</span></p>
+            <p><strong>3. Uneven/Wavy Stitch (缝线波浪-不平直 Đường may gợn sóng)</strong> - <span class="badge badge-warning">37,822 pieces (7.16%)</span></p>
+            <p style="margin-top: 10px;"><em>These three defect types alone account for <strong>32.63%</strong> of all endline quality defects.</em></p>
+        </div>
+
+        <h2>📈 Defect Distribution Chart</h2>
+        <div id="chart" class="chart-container"></div>
+
+        <h2>📋 Detailed Defect Analysis - Top 10</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Defect Type</th>
+                    <th>Defective Pieces</th>
+                    <th>Occurrences</th>
+                    <th>Share (%)</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Puckering/Pleating (起皱-打褶 Nhăn-nhíu)</td>
+                    <td><strong>85,636</strong></td>
+                    <td>11,468</td>
+                    <td>16.21%</td>
+                    <td><span class="badge badge-danger">Critical</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Unattached/Untrimmed/Loop Thread</td>
+                    <td><strong>48,941</strong></td>
+                    <td>7,340</td>
+                    <td>9.26%</td>
+                    <td><span class="badge badge-warning">High</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Uneven/Wavy Stitch (缝线波浪-不平直)</td>
+                    <td><strong>37,822</strong></td>
+                    <td>7,283</td>
+                    <td>7.16%</td>
+                    <td><span class="badge badge-warning">High</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Miscellaneous Construction Defect</td>
+                    <td>36,923</td>
+                    <td>5,805</td>
+                    <td>6.99%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Broken Stitch (断线 Đứt chỉ)</td>
+                    <td>32,643</td>
+                    <td>7,781</td>
+                    <td>6.18%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Oil Stain (油污 Dơ dầu)</td>
+                    <td>32,160</td>
+                    <td>5,371</td>
+                    <td>6.09%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Drop Stitch (跳針 Bỏ mũi)</td>
+                    <td>29,627</td>
+                    <td>6,931</td>
+                    <td>5.61%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Twisted/Roping/Uneven Hem</td>
+                    <td>22,718</td>
+                    <td>5,864</td>
+                    <td>4.30%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Skip Stitch (滑針 Sụp mí)</td>
+                    <td>19,725</td>
+                    <td>5,629</td>
+                    <td>3.73%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Poor Neck Shape (領型差 Cổ méo)</td>
+                    <td>19,350</td>
+                    <td>4,443</td>
+                    <td>3.66%</td>
+                    <td><span class="badge badge-info">Medium</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🎯 Key Insights & Recommendations</h2>
+        <div style="background-color: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0; color: #2c3e50;">Critical Findings</h3>
+            <ul style="line-height: 1.8;">
+                <li><strong>Puckering/Pleating</strong> is the dominant defect type, representing over 16% of all defects. This suggests potential issues with fabric tension, needle selection, or thread quality.</li>
+                <li><strong>Thread-related defects</strong> (Untrimmed Thread, Wavy Stitch, Broken Stitch, Drop Stitch, Skip Stitch) collectively account for approximately 32% of all defects, indicating systematic sewing process issues.</li>
+                <li>The top 3 defects alone represent <strong>32.63%</strong> of total quality issues, making them priority targets for immediate corrective action.</li>
+            </ul>
+            
+            <h3 style="color: #2c3e50;">Recommended Actions</h3>
+            <ul style="line-height: 1.8;">
+                <li><strong>Immediate:</strong> Conduct root cause analysis on puckering issues - review needle type, thread tension settings, and fabric handling procedures.</li>
+                <li><strong>Short-term:</strong> Implement enhanced thread trimming training and quality checkpoints at sewing stations.</li>
+                <li><strong>Medium-term:</strong> Review and standardize stitch quality standards across all production lines.</li>
+                <li><strong>Monitoring:</strong> Establish daily defect tracking dashboards focusing on the top 5 defect types.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Report Generated: 2026-09-28 | Data Source: QC Endline Inspection System | Period: May 2026</p>
+            <p>This report is based on actual inspection data from QCTestsDefectEndline table. Total defective pieces analyzed: 528,446</p>
+        </div>
+    </div>
+
+    <script>
+        var chart = echarts.init(document.getElementById('chart'));
+        var option = {
+            title: {
+                text: 'Top 3 QC Endline Defects - May 2026',
+                left: 'center',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                top: 30,
+                left: 'center'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Puckering', 'Untrimmed Thread', 'Wavy Stitch'],
+                name: 'Defect Type',
+                nameLocation: 'end',
+                nameGap: 25
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Defective Pieces',
+                axisLabel: {},
+                splitLine: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: 'Defective Pieces',
+                    type: 'bar',
+                    data: [85636, 48941, 37822],
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: '#667eea' },
+                            { offset: 1, color: '#764ba2' }
+                        ]),
+                        borderRadius: [5, 5, 0, 0]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}',
+                        fontWeight: 'bold'
+                    }
+                }
+            ]
+        };
+        chart.setOption(option);
+        
+        window.addEventListener('resize', function() {
+            chart.resize();
+        });
+    </script>
+</body>
+</html>
